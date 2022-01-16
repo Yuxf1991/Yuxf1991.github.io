@@ -6,12 +6,12 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://codegeek.club">
-  <title>Code Geek!</title>
+  <title>Archives: 2022/1 | Code Geek!</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="技术博客">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Code Geek!">
-<meta property="og:url" content="http://codegeek.club/index.html">
+<meta property="og:url" content="http://codegeek.club/archives/2022/01/index.html">
 <meta property="og:site_name" content="Code Geek!">
 <meta property="og:description" content="技术博客">
 <meta property="og:locale" content="zh_CN">
@@ -164,35 +164,35 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-OpenHarmony/OpenHarmony环境配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
+  
     
-      <header class="article-header">
-        
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2022" class="archive-year">2022</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2022/01/17/OpenHarmony/OpenHarmony%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" class="archive-article-date">
+  	<time datetime="2022-01-16T16:29:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-17</time>
+</a>
+        </div>
+    	 
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2022/01/17/OpenHarmony/OpenHarmony%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">OpenHarmony环境配置</a>
+      <a class="archive-article-title" href="/2022/01/17/OpenHarmony/OpenHarmony%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">OpenHarmony环境配置</a>
     </h1>
   
 
-        
-        <a href="/2022/01/17/OpenHarmony/OpenHarmony%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" class="archive-article-date">
-  	<time datetime="2022-01-16T16:29:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="OpenHarmony环境配置"><a href="#OpenHarmony环境配置" class="headerlink" title="OpenHarmony环境配置"></a>OpenHarmony环境配置</h1>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
+        <div class="article-info info-on-right">
+          
+          
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -205,191 +205,17 @@
 	</div>
 
 
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/01/17/OpenHarmony/OpenHarmony%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
+        </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
-    <article id="post-Android/Android中基于RefBase的强弱指针" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
+  
+    </div></section>
+  
+
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/11/21/Android/Android%E4%B8%AD%E5%9F%BA%E4%BA%8ERefBase%E7%9A%84%E5%BC%BA%E5%BC%B1%E6%8C%87%E9%92%88/">Android中基于RefBase的强弱指针</a>
-    </h1>
-  
-
-        
-        <a href="/2021/11/21/Android/Android%E4%B8%AD%E5%9F%BA%E4%BA%8ERefBase%E7%9A%84%E5%BC%BA%E5%BC%B1%E6%8C%87%E9%92%88/" class="archive-article-date">
-  	<time datetime="2021-11-21T13:27:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>&emsp;&emsp;观察AOSP的native代码，发现其中很多class都会继承RefBase，那么继承RefBase到底有哪些作用呢？观察声明RefBase的头文件[system/core/libutils/include/utils/RefBase.h]，里面有非常详细的注释，可以看到RefBase是为了智能指针wp和sp的使用而定义的。顾名思义，wp和sp指针为引用计数型指针，分为表示弱引用指针和强引用指针。但是众所周知，C++的标准库中也有引用计数型指针shared_ptr和weak_ptr，为什么Android不使用标准库中的引用计数型智能指针，而要自己造一套轮子呢？Android实现的wp和sp究竟相比于标准库的shared_ptr和unique_ptr有何优势？</p>
-        
-          <a class="article-more-a" href="/2021/11/21/Android/Android%E4%B8%AD%E5%9F%BA%E4%BA%8ERefBase%E7%9A%84%E5%BC%BA%E5%BC%B1%E6%8C%87%E9%92%88/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Android//" class="article-tag-list-link color3">Android</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/11/21/Android/Android%E4%B8%AD%E5%9F%BA%E4%BA%8ERefBase%E7%9A%84%E5%BC%BA%E5%BC%B1%E6%8C%87%E9%92%88/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Android/Android-12-源码漫游" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/11/19/Android/Android-12-%E6%BA%90%E7%A0%81%E6%BC%AB%E6%B8%B8/">Android 12 源码漫游</a>
-    </h1>
-  
-
-        
-        <a href="/2021/11/19/Android/Android-12-%E6%BA%90%E7%A0%81%E6%BC%AB%E6%B8%B8/" class="archive-article-date">
-  	<time datetime="2021-11-19T15:31:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-19</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>&emsp;&emsp;Android系统最新的版本已经是12.0，对于想要了解Android基础框架的人来说，查看其源码是一个不错的选择。Android源码由Google公司维护，全称为Android Open Source Project(AOSP)，那么接下来就是对AOSP的代码漫游之旅！<br/></p>
-        
-          <a class="article-more-a" href="/2021/11/19/Android/Android-12-%E6%BA%90%E7%A0%81%E6%BC%AB%E6%B8%B8/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Android//" class="article-tag-list-link color3">Android</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/11/19/Android/Android-12-%E6%BA%90%E7%A0%81%E6%BC%AB%E6%B8%B8/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-  
 
 
           </div>
@@ -411,9 +237,9 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
+		isHome: false,
 		isPost: false,
-		isArchive: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

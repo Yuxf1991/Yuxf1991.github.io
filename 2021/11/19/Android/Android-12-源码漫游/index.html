@@ -6,15 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://codegeek.club">
-  <title>Code Geek!</title>
+  <title>Android 12 源码漫游 | Code Geek!</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="技术博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Code Geek!">
-<meta property="og:url" content="http://codegeek.club/index.html">
+  <meta name="description" content="&amp;emsp;&amp;emsp;Android系统最新的版本已经是12.0，对于想要了解Android基础框架的人来说，查看其源码是一个不错的选择。Android源码由Google公司维护，全称为Android Open Source Project(AOSP)，那么接下来就是对AOSP的代码漫游之旅！">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android 12 源码漫游">
+<meta property="og:url" content="http://codegeek.club/2021/11/19/Android/Android-12-%E6%BA%90%E7%A0%81%E6%BC%AB%E6%B8%B8/index.html">
 <meta property="og:site_name" content="Code Geek!">
-<meta property="og:description" content="技术博客">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;Android系统最新的版本已经是12.0，对于想要了解Android基础框架的人来说，查看其源码是一个不错的选择。Android源码由Google公司维护，全称为Android Open Source Project(AOSP)，那么接下来就是对AOSP的代码漫游之旅！">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-11-19T15:31:29.000Z">
+<meta property="article:modified_time" content="2022-01-16T17:52:07.070Z">
 <meta property="article:author" content="xxfeng">
 <meta property="article:tag" content="Android, OpenHarmony, Linux, C++">
 <meta name="twitter:card" content="summary">
@@ -162,165 +164,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-OpenHarmony/OpenHarmony环境配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-Android/Android-12-源码漫游" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/01/17/OpenHarmony/OpenHarmony%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">OpenHarmony环境配置</a>
-    </h1>
-  
-
-        
-        <a href="/2022/01/17/OpenHarmony/OpenHarmony%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" class="archive-article-date">
-  	<time datetime="2022-01-16T16:29:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="OpenHarmony环境配置"><a href="#OpenHarmony环境配置" class="headerlink" title="OpenHarmony环境配置"></a>OpenHarmony环境配置</h1>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/OpenHarmony//" class="article-tag-list-link color2">OpenHarmony</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/01/17/OpenHarmony/OpenHarmony%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Android/Android中基于RefBase的强弱指针" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/11/21/Android/Android%E4%B8%AD%E5%9F%BA%E4%BA%8ERefBase%E7%9A%84%E5%BC%BA%E5%BC%B1%E6%8C%87%E9%92%88/">Android中基于RefBase的强弱指针</a>
-    </h1>
-  
-
-        
-        <a href="/2021/11/21/Android/Android%E4%B8%AD%E5%9F%BA%E4%BA%8ERefBase%E7%9A%84%E5%BC%BA%E5%BC%B1%E6%8C%87%E9%92%88/" class="archive-article-date">
-  	<time datetime="2021-11-21T13:27:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>&emsp;&emsp;观察AOSP的native代码，发现其中很多class都会继承RefBase，那么继承RefBase到底有哪些作用呢？观察声明RefBase的头文件[system/core/libutils/include/utils/RefBase.h]，里面有非常详细的注释，可以看到RefBase是为了智能指针wp和sp的使用而定义的。顾名思义，wp和sp指针为引用计数型指针，分为表示弱引用指针和强引用指针。但是众所周知，C++的标准库中也有引用计数型指针shared_ptr和weak_ptr，为什么Android不使用标准库中的引用计数型智能指针，而要自己造一套轮子呢？Android实现的wp和sp究竟相比于标准库的shared_ptr和unique_ptr有何优势？</p>
-        
-          <a class="article-more-a" href="/2021/11/21/Android/Android%E4%B8%AD%E5%9F%BA%E4%BA%8ERefBase%E7%9A%84%E5%BC%BA%E5%BC%B1%E6%8C%87%E9%92%88/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Android//" class="article-tag-list-link color3">Android</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/11/21/Android/Android%E4%B8%AD%E5%9F%BA%E4%BA%8ERefBase%E7%9A%84%E5%BC%BA%E5%BC%B1%E6%8C%87%E9%92%88/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Android/Android-12-源码漫游" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/11/19/Android/Android-12-%E6%BA%90%E7%A0%81%E6%BC%AB%E6%B8%B8/">Android 12 源码漫游</a>
+    <h1 class="article-title" itemprop="name">
+      Android 12 源码漫游
     </h1>
   
 
@@ -334,11 +185,43 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>&emsp;&emsp;Android系统最新的版本已经是12.0，对于想要了解Android基础框架的人来说，查看其源码是一个不错的选择。Android源码由Google公司维护，全称为Android Open Source Project(AOSP)，那么接下来就是对AOSP的代码漫游之旅！<br/></p>
-        
-          <a class="article-more-a" href="/2021/11/19/Android/Android-12-%E6%BA%90%E7%A0%81%E6%BC%AB%E6%B8%B8/#more">more >></a>
-        
+<span id="more"></span>
+
+<p>&emsp;&emsp;工欲善其事，必先利其器。查看Android源码最好使用Linux系统，这里使用Ubuntu20.04 LTS。<br/><br/></p>
+<h2 id="1-下载源码"><a href="#1-下载源码" class="headerlink" title="1. 下载源码"></a>1. 下载源码</h2><p>&emsp;&emsp;由于国内网络环境的问题，不能从Google的官方仓库下载AOSP代码。所以只能从国内的开源镜像站下载，著名的有清华的开源镜像站：<br><a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/">https://mirrors.tuna.tsinghua.edu.cn/</a>  <br/> 并且其网站上有完整的下载教程可供参考。</p>
+<h2 id="2-源码编译"><a href="#2-源码编译" class="headerlink" title="2. 源码编译"></a>2. 源码编译</h2><p>&emsp;&emsp;下载AOSP代码完成之后，可以进行编译工作：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd AOSP                     # cd进入下载好的AOSP代码目录</span><br><span class="line">source build/envsetup.sh    # 初始化编译环境</span><br><span class="line">lunch                       # 会弹出一个选择框，选择需要编译的系统类型，如aosp_arm64-eng</span><br><span class="line">make -jN                    # 以并发数N进行系统编译，如make -j4就是以4个线程并发</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-准备源码阅读环境"><a href="#3-准备源码阅读环境" class="headerlink" title="3. 准备源码阅读环境"></a>3. 准备源码阅读环境</h2><p>&emsp;&emsp;AOSP代码主要有两部分，一部分是Java语言编写的上层应用框架层，一部分是C++语言编写的native系统架构层，阅读这两部分的代码，都需要有一个合适的工具，推荐使用Jetbrains公司的IDE来阅读，分别是Android Studio（阅读Java框架代码）和Clion（阅读native系统框架的代码）。<br/></p>
+<h3 id="3-1-首先是Java代码的准备，依次执行如下命令："><a href="#3-1-首先是Java代码的准备，依次执行如下命令：" class="headerlink" title="3.1 首先是Java代码的准备，依次执行如下命令："></a>3.1 首先是Java代码的准备，依次执行如下命令：</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cd AOSP                      # cd进入下载好的AOSP代码目录</span><br><span class="line">source build/envsetup.sh     # 初始化编译环境</span><br><span class="line">lunch                        # 会弹出一个选择框，选择需要编译的系统类型，如aosp_arm64-eng</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 在源码根目录会生成android.ipr</span></span><br><span class="line">mmm development/tools/idegen</span><br><span class="line">./development/tools/idegen/idegen.sh</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;打开Android Studio，选择源码根目录中刚刚生成的android.ipr文件，静静等待代码索引的建立，之后就可以跳转代码啦。</p>
+<h3 id="3-2-接下来是native（C-）代码的准备："><a href="#3-2-接下来是native（C-）代码的准备：" class="headerlink" title="3.2 接下来是native（C++）代码的准备："></a>3.2 接下来是native（C++）代码的准备：</h3><p>&emsp;&emsp;可以参考Google官方给出的文档<br><a target="_blank" rel="noopener" href="https://android.googlesource.com/platform/build/soong/+/refs/heads/master/docs/clion.md">https://android.googlesource.com/platform/build/soong/+/refs/heads/master/docs/clion.md</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cd AOSP                      # cd进入下载好的AOSP代码目录</span><br><span class="line">source build/envsetup.sh     # 初始化编译环境</span><br><span class="line">lunch                        # 会弹出一个选择框，选择需要编译的系统类型，如aosp_arm64-eng</span><br><span class="line"></span><br><span class="line">export SOONG_GEN_CMAKEFILES=1</span><br><span class="line">export SOONG_GEN_CMAKEFILES_DEBUG=1</span><br><span class="line">make -j4</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;等待编译完成，在源码根目录的out/development/ide/clion文件夹中就会生成系统所有C++模块的CMakeLists.txt文件，用Clion打开其中某个模块，比如<br/><br>out/development/ide/clion/frameworks/native/libs/gui/libgui-arm64-android，那么就可以查看native中gui库的代码，并支持跳转。<br/><br>&emsp;&emsp;当然也可以直接将out/development/ide/clion整个文件夹打开，然后自己添加CMakeLists.txt，利用add_subdirectory()将需要的模块目录添加进工程，这样就能按需查看native代码并且支持跳转啦！这时候会发现导入的源文件会以外部源文件的形式呈现在project中，原有的目录关系丢失了，这时候点击Tools–CMake–Change project root即可解决问题。</p>
+
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -358,16 +241,79 @@
 
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/11/19/Android/Android-12-%E6%BA%90%E7%A0%81%E6%BC%AB%E6%B8%B8/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://codegeek.club/2021/11/19/Android/Android-12-%E6%BA%90%E7%A0%81%E6%BC%AB%E6%B8%B8/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2021/11/21/Android/Android%E4%B8%AD%E5%9F%BA%E4%BA%8ERefBase%E7%9A%84%E5%BC%BA%E5%BC%B1%E6%8C%87%E9%92%88/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Android中基于RefBase的强弱指针
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -387,8 +333,14 @@
 
 
 
+  
+  
+  
 
   
+
+  
+
   
 
 
@@ -411,8 +363,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
