@@ -79,20 +79,21 @@
 
 
 
-<meta name="description" content="&amp;emsp;&amp;emsp;Android系统最新的版本已经是12.0，对于想要了解Android基础框架的人来说，查看其源码是一个不错的选择。Android源码由Google公司维护，全称为Android Open Source Project(AOSP)，那么接下来就是对AOSP的代码漫游之旅！">
+<meta name="description" content="Android系统最新的版本已经是12.0，对于想要了解Android基础框架的人来说，查看其源码是一个不错的选择。Android源码由Google公司维护，全称为Android Open Source Project(AOSP)，那么接下来就是对AOSP的代码漫游之旅！">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android 12 源码漫游">
 <meta property="og:url" content="http://codegeek.club/2021/11/19/Android/Android-12-%E6%BA%90%E7%A0%81%E6%BC%AB%E6%B8%B8/index.html">
 <meta property="og:site_name" content="Code Geek!">
-<meta property="og:description" content="&amp;emsp;&amp;emsp;Android系统最新的版本已经是12.0，对于想要了解Android基础框架的人来说，查看其源码是一个不错的选择。Android源码由Google公司维护，全称为Android Open Source Project(AOSP)，那么接下来就是对AOSP的代码漫游之旅！">
+<meta property="og:description" content="Android系统最新的版本已经是12.0，对于想要了解Android基础框架的人来说，查看其源码是一个不错的选择。Android源码由Google公司维护，全称为Android Open Source Project(AOSP)，那么接下来就是对AOSP的代码漫游之旅！">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://codegeek.club/images/vscode_cmake_settings.png">
+<meta property="og:image" content="http://codegeek.club/images/vscode_cmake_build_dir.png">
+<meta property="og:image" content="http://codegeek.club/images/vscode_cmake_config_args.png">
 <meta property="article:published_time" content="2021-11-19T15:31:29.000Z">
-<meta property="article:modified_time" content="2022-01-17T15:20:46.069Z">
+<meta property="article:modified_time" content="2022-04-24T08:07:01.835Z">
 <meta property="article:author" content="xxfeng">
 <meta property="article:tag" content="Android, OpenHarmony, Linux, C++">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://codegeek.club/images/vscode_cmake_settings.png">
+<meta name="twitter:image" content="http://codegeek.club/images/vscode_cmake_build_dir.png">
 
 
 
@@ -334,20 +335,71 @@
       
 
       
-        <p>&emsp;&emsp;Android系统最新的版本已经是12.0，对于想要了解Android基础框架的人来说，查看其源码是一个不错的选择。Android源码由Google公司维护，全称为Android Open Source Project(AOSP)，那么接下来就是对AOSP的代码漫游之旅！<br/></p>
+        <p>Android系统最新的版本已经是12.0，对于想要了解Android基础框架的人来说，查看其源码是一个不错的选择。Android源码由Google公司维护，全称为Android Open Source Project(AOSP)，那么接下来就是对AOSP的代码漫游之旅！<br/>
 <span id="more"></span>
 
-<p>&emsp;&emsp;工欲善其事，必先利其器。查看Android源码最好使用Linux系统，这里使用Ubuntu20.04 LTS。<br/><br/></p>
-<h2 id="1-下载源码"><a href="#1-下载源码" class="headerlink" title="1. 下载源码"></a>1. 下载源码</h2><p>&emsp;&emsp;由于国内网络环境的问题，不能从Google的官方仓库下载AOSP代码。所以只能从国内的开源镜像站下载，著名的有清华的开源镜像站：<br><a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/">https://mirrors.tuna.tsinghua.edu.cn/</a>  <br/> 其网站上有完整的下载教程可供参考。</p>
-<h2 id="2-源码编译"><a href="#2-源码编译" class="headerlink" title="2. 源码编译"></a>2. 源码编译</h2><p>&emsp;&emsp;下载AOSP代码完成之后，可以进行编译工作：</p>
+<p>工欲善其事，必先利其器。查看Android源码最好使用Linux系统，这里使用Ubuntu 20.04 LTS。<br/><br/>
+
+<h2 id="1-下载源码"><a href="#1-下载源码" class="headerlink" title="1. 下载源码"></a>1. 下载源码</h2><p>由于国内网络环境的问题，不能从Google的官方仓库下载AOSP代码。所以只能从国内的开源镜像站下载，著名的有清华的开源镜像站：
+https://mirrors.tuna.tsinghua.edu.cn/ 
+<br/> 
+<p>其网站上有完整的下载教程可供参考。
+
+<h2 id="2-源码编译"><a href="#2-源码编译" class="headerlink" title="2. 源码编译"></a>2. 源码编译</h2><p>下载AOSP代码完成之后，可以进行编译工作：
+
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd AOSP                     # cd进入下载好的AOSP代码目录</span><br><span class="line">source build/envsetup.sh    # 初始化编译环境</span><br><span class="line">lunch 2                     # 会弹出一个选择框，选择需要编译的系统类型，我们选择2(aosp_arm64-eng)</span><br><span class="line">make -j4                    # 以4个线程并发进行编译构建，可根据配置自行调整</span><br></pre></td></tr></table></figure>
 
-<h2 id="3-准备源码阅读环境"><a href="#3-准备源码阅读环境" class="headerlink" title="3. 准备源码阅读环境"></a>3. 准备源码阅读环境</h2><p>&emsp;&emsp;AOSP代码主要有两部分，一部分是Java语言编写的上层应用框架层，一部分是C++语言编写的native系统架构层，阅读这两部分的代码，都需要有一个合适的工具，推荐使用Jetbrains公司的IDE来阅读，分别是Android Studio（阅读Java框架代码）和Clion（阅读native系统框架的代码）。<br/></p>
-<h3 id="3-1-首先是Java代码的准备，依次执行如下命令："><a href="#3-1-首先是Java代码的准备，依次执行如下命令：" class="headerlink" title="3.1 首先是Java代码的准备，依次执行如下命令："></a>3.1 首先是Java代码的准备，依次执行如下命令：</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cd AOSP                      # cd进入下载好的AOSP代码目录</span><br><span class="line">source build/envsetup.sh     # 初始化编译环境</span><br><span class="line">lunch                        # 会弹出一个选择框，选择需要编译的系统类型，如aosp_arm64-eng</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 在源码根目录会生成android.ipr</span></span><br><span class="line">mmm development/tools/idegen</span><br><span class="line">./development/tools/idegen/idegen.sh</span><br></pre></td></tr></table></figure>
-<p>&emsp;&emsp;打开Android Studio，选择源码根目录中刚刚生成的android.ipr文件，静静等待代码索引的建立，之后就可以跳转代码啦。</p>
-<h3 id="3-2-接下来是native（C-）代码的准备："><a href="#3-2-接下来是native（C-）代码的准备：" class="headerlink" title="3.2 接下来是native（C++）代码的准备："></a>3.2 接下来是native（C++）代码的准备：</h3><p>&emsp;&emsp;可以参考Google官方给出的文档<br><a target="_blank" rel="noopener" href="https://android.googlesource.com/platform/build/soong/+/refs/heads/master/docs/clion.md">https://android.googlesource.com/platform/build/soong/+/refs/heads/master/docs/clion.md</a></p>
+<h2 id="3-准备源码阅读环境"><a href="#3-准备源码阅读环境" class="headerlink" title="3. 准备源码阅读环境"></a>3. 准备源码阅读环境</h2><p>AOSP代码主要有两部分，一部分是Java语言编写的上层应用框架层，一部分是C++语言编写的native系统架构层，阅读这两部分的代码，都需要有一个合适的工具，推荐使用Jetbrains公司的IDE来阅读，分别是Android Studio（阅读Java框架代码）和Clion（阅读native系统框架的代码）。<br/>
+### 3.1 首先是Java代码的准备，依次执行如下命令：
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cd AOSP                      # cd进入下载好的AOSP代码目录</span><br><span class="line">source build/envsetup.sh     # 初始化编译环境</span><br><span class="line">lunch 2                      # 选择需要编译的系统类型，如2(aosp_arm64-eng)</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 在源码根目录会生成android.ipr</span></span><br><span class="line">mmm development/tools/idegen</span><br><span class="line">./development/tools/idegen/idegen.sh</span><br></pre></td></tr></table></figure>
+
+<p>打开Android Studio，选择源码根目录中刚刚生成的android.ipr文件，静静等待代码索引的建立，之后就可以跳转代码啦。
+
+<h3 id="3-2-接下来是native（C-）代码的准备："><a href="#3-2-接下来是native（C-）代码的准备：" class="headerlink" title="3.2 接下来是native（C++）代码的准备："></a>3.2 接下来是native（C++）代码的准备：</h3><h4 id="3-2-1-使用CLion"><a href="#3-2-1-使用CLion" class="headerlink" title="3.2.1 使用CLion"></a>3.2.1 使用CLion</h4><p>可以参考Google官方给出的文档:<br/>
+
+<p><a target="_blank" rel="noopener" href="https://android.googlesource.com/platform/build/soong/+/refs/heads/master/docs/clion.md">https://android.googlesource.com/platform/build/soong/+/refs/heads/master/docs/clion.md</a></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cd AOSP                      # cd进入下载好的AOSP代码目录</span><br><span class="line">source build/envsetup.sh     # 初始化编译环境</span><br><span class="line">lunch 2                      # 会弹出一个选择框，选择需要编译的系统类型，我们选择2(aosp_arm64-eng)</span><br><span class="line"></span><br><span class="line">export SOONG_GEN_CMAKEFILES=1</span><br><span class="line">export SOONG_GEN_CMAKEFILES_DEBUG=1</span><br><span class="line">make -j4</span><br></pre></td></tr></table></figure>
-<p>&emsp;&emsp;等待编译完成，在源码根目录的out/development/ide/clion文件夹中就会生成系统所有C++模块的CMakeLists.txt文件，用Clion打开其中某个模块，比如<br>out/development/ide/clion/frameworks/native/libs/gui/libgui-arm64-android，那么就可以查看native中gui库的代码，并支持跳转。<br/><br>&emsp;&emsp;当然也可以直接将out/development/ide/clion整个文件夹打开，然后自己添加CMakeLists.txt，利用add_subdirectory()将需要的模块目录添加进工程，这样就能按需查看native代码并且支持跳转啦！这时候会发现导入的源文件会以外部源文件的形式呈现在project中，原有的目录关系丢失了，这时候点击Tools–CMake–Change project root即可解决问题。<br/><br>&emsp;&emsp;如果没有Clion，也可以使用VSCode。<br>&emsp;&emsp;1. 首先安装CMake-tools插件和clangd插件（clangd和c/c++插件是冲突的，可以卸载c/c++插件），注意修改一下VSCode的CMake-tools插件的Build Directory设置：<br><img src="/../../images/vscode_cmake_settings.png" alt="vscode_cmake_settings"><br>&emsp;&emsp;2. 打开AOSP整个文件夹，在AOSP根目录添加一个CMakeLists.txt，利用add_subdirectory()将需要的模块目录添加进工程来。<br>&emsp;&emsp;3.</p>
+
+<p>等待编译完成，在源码根目录的out/development/ide/clion文件夹中就会生成系统所有C++模块的CMakeLists.txt文件，用Clion打开其中某个模块，比如
+out/development/ide/clion/frameworks/native/libs/gui/libgui-arm64-android，
+那么就可以查看native中gui库的代码，并支持跳转。<br/>
+<p>当然也可以直接将out/development/ide/clion整个文件夹打开，然后自己添加CMakeLists.txt，利用add_subdirectory()将需要的模块目录添加进工程，这样就能按需查看native代码并且支持跳转啦！这时候会发现导入的源文件会以外部源文件的形式呈现在project中，原有的目录关系丢失了，这时候点击Tools--CMake--Change project root即可解决问题。<br/>
+
+<br/>
+
+<h4 id="3-2-2-使用VSCode"><a href="#3-2-2-使用VSCode" class="headerlink" title="3.2.2 使用VSCode"></a>3.2.2 使用VSCode</h4><p>如果没有Clion，也可以使用VSCode。
+
+<br/>
+
+<p> 1. 首先安装CMake-tools插件和clangd插件（clangd和c/c++插件是冲突的，clangd对于c++代码的解析明显体验好于官方插件，可以考虑把官方c/c++插件卸载掉），注意修改一下VSCode的CMake-tools插件的Build Directory设置（防止VSCode自动生成的build目录和AOSP的build目录发生冲突）：
+
+<p><img src="/../../images/vscode_cmake_build_dir.png" alt="vscode_cmake_build_dir"></p>
+<p>以及CMake Configure Args设置：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 增加如下configure arg</span></span><br><span class="line">-DCMAKE_EXPORT_COMPILE_COMMANDS=1</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../../images/vscode_cmake_config_args.png" alt="vscode_cmake_config_args"></p>
+<br/>
+
+<p> 2. 打开AOSP整个文件夹，在AOSP根目录添加一个CMakeLists.txt，利用add_subdirectory()将需要的模块目录添加进工程来。这里提供一些供参考：<br/>
+
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.6</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">project</span>(AOSP_Master)</span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD <span class="number">17</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">add_subdirectory</span>(out/development/ide/clion/frameworks/native/libs/binder/libbinder-arm64-android)</span><br><span class="line"><span class="keyword">add_subdirectory</span>(out/development/ide/clion/frameworks/native/libs/dumputils/libdumputils-arm64-android)</span><br><span class="line"><span class="keyword">add_subdirectory</span>(out/development/ide/clion/frameworks/native/libs/gralloc/types/libgralloctypes-arm64-android)</span><br><span class="line"><span class="keyword">add_subdirectory</span>(out/development/ide/clion/frameworks/native/libs/input/libinput-arm64-android)</span><br><span class="line"><span class="keyword">add_subdirectory</span>(out/development/ide/clion/frameworks/native/libs/nativewindow/libnativewindow-arm64-android)</span><br><span class="line"><span class="keyword">add_subdirectory</span>(out/development/ide/clion/frameworks/native/libs/nativedisplay/libnativedisplay-arm64-android)</span><br><span class="line"><span class="keyword">add_subdirectory</span>(out/development/ide/clion/frameworks/native)</span><br><span class="line"></span><br><span class="line"><span class="keyword">add_subdirectory</span>(out/development/ide/clion/frameworks/native/cmds/atrace/atrace-arm64-android)</span><br><span class="line"><span class="keyword">add_subdirectory</span>(out/development/ide/clion/frameworks/native/cmds/dumpsys/libdumpsys-arm64-android)</span><br><span class="line"><span class="keyword">add_subdirectory</span>(out/development/ide/clion/frameworks/native/cmds/dumpsys/dumpsys-arm64-android)</span><br><span class="line"></span><br><span class="line"><span class="keyword">add_subdirectory</span>(out/development/ide/clion/system/libbase/libbase-arm64-android)</span><br><span class="line"><span class="keyword">add_subdirectory</span>(out/development/ide/clion/system/core/libasyncio/libasyncio-arm64-android)</span><br><span class="line"><span class="keyword">add_subdirectory</span>(out/development/ide/clion/system/core/libcutils/libcutils-arm64-android)</span><br><span class="line"><span class="keyword">add_subdirectory</span>(out/development/ide/clion/system/core/libsync/libsync-arm64-android)</span><br><span class="line"><span class="keyword">add_subdirectory</span>(out/development/ide/clion/system/core/libutils/libutils-arm64-android)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<br/>
+
+<p> 3. 由于AOSP使用自带的编译器，所以我们需要给VSCode手动增加一个CMakeTools kit。其中的编译器路径我们可以使用AOSP自动生成的CMakeLists.txt中指定的路径：
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 打开CMakeTools的kit配置文件</span></span><br><span class="line">vim ~/.local/share/CMakeTools/cmake-tools-kits.json</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 增加如下kit, 保存并退出</span></span><br><span class="line">&#123;</span><br><span class="line">    &quot;name&quot;: &quot;Clang AOSP master&quot;,</span><br><span class="line">    &quot;compilers&quot;: &#123;</span><br><span class="line">        # 这里的clang路径应该参考自动生成出来的的cmake文件中的编译器路径</span><br><span class="line">        # 具体路径根据自己代码位置决定，建议使用绝对路径</span><br><span class="line">        &quot;C&quot;: &quot;AOSP_ROOT/prebuilts/clang/host/linux-x86/clang-r437112b/bin/clang&quot;,</span><br><span class="line">        &quot;CXX&quot;: &quot;AOSP_ROOT/prebuilts/clang/host/linux-x86/clang-r437112b/bin/clang++&quot;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<br/>
+
+<p> 4. 按F1，选择执行CMake Configuration操作(注意选择第三步添加的cmake toolkit进行configuration)。
+
+<br/>
+
+<p> 5. CMake Configuration执行完毕后，可以看到在build-vscode文件夹下会生成一个compile_commands.json，把它软链接到AOSP根目录，就可以让clangd插件找到它并开始索引源码啦！初次建立索引的过程可能会有点慢，耐心等待一下即可。
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 在AOSP根目录执行，创建compile_commands.json的软链接</span></span><br><span class="line">ln -s build-vscode/compile_commands.json</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> VSCode的clangd插件需要依赖clangd服务</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 可以选择apt安装，或者自行去clangd官网手动下载最新版</span></span><br><span class="line">sudo apt install clangd</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -457,7 +509,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -468,7 +520,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -503,7 +555,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81"><span class="nav-number">1.</span> <span class="nav-text">1. 下载源码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91"><span class="nav-number">2.</span> <span class="nav-text">2. 源码编译</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%87%86%E5%A4%87%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E7%8E%AF%E5%A2%83"><span class="nav-number">3.</span> <span class="nav-text">3. 准备源码阅读环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E9%A6%96%E5%85%88%E6%98%AFJava%E4%BB%A3%E7%A0%81%E7%9A%84%E5%87%86%E5%A4%87%EF%BC%8C%E4%BE%9D%E6%AC%A1%E6%89%A7%E8%A1%8C%E5%A6%82%E4%B8%8B%E5%91%BD%E4%BB%A4%EF%BC%9A"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 首先是Java代码的准备，依次执行如下命令：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E6%8E%A5%E4%B8%8B%E6%9D%A5%E6%98%AFnative%EF%BC%88C-%EF%BC%89%E4%BB%A3%E7%A0%81%E7%9A%84%E5%87%86%E5%A4%87%EF%BC%9A"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 接下来是native（C++）代码的准备：</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81"><span class="nav-number">1.</span> <span class="nav-text">1. 下载源码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91"><span class="nav-number">2.</span> <span class="nav-text">2. 源码编译</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%87%86%E5%A4%87%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E7%8E%AF%E5%A2%83"><span class="nav-number">3.</span> <span class="nav-text">3. 准备源码阅读环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E6%8E%A5%E4%B8%8B%E6%9D%A5%E6%98%AFnative%EF%BC%88C-%EF%BC%89%E4%BB%A3%E7%A0%81%E7%9A%84%E5%87%86%E5%A4%87%EF%BC%9A"><span class="nav-number">3.1.</span> <span class="nav-text">3.2 接下来是native（C++）代码的准备：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-1-%E4%BD%BF%E7%94%A8CLion"><span class="nav-number">3.1.1.</span> <span class="nav-text">3.2.1 使用CLion</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-2-%E4%BD%BF%E7%94%A8VSCode"><span class="nav-number">3.1.2.</span> <span class="nav-text">3.2.2 使用VSCode</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

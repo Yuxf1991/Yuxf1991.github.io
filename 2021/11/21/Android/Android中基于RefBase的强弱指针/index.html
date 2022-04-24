@@ -79,15 +79,15 @@
 
 
 
-<meta name="description" content="&amp;emsp;&amp;emsp;观察AOSP的native代码，发现其中很多class都会继承RefBase，那么继承RefBase到底有哪些作用呢？观察声明RefBase的头文件[system&#x2F;core&#x2F;libutils&#x2F;include&#x2F;utils&#x2F;RefBase.h]，里面有非常详细的注释，可以看到RefBase是为了智能指针wp和sp的使用而定义的。顾名思义，wp和sp指针为引用计数型指针，分为表示">
+<meta name="description" content="观察AOSP的native代码，发现其中很多class都会继承RefBase，那么继承RefBase到底有哪些作用呢？观察声明RefBase的头文件[system&#x2F;core&#x2F;libutils&#x2F;include&#x2F;utils&#x2F;RefBase.h]，里面有非常详细的注释，可以看到RefBase是为了智能指针wp和sp的使用而定义的。顾名思义，wp和sp指针为引用计数型指针，分为表示弱引用指针和强引用指针。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android中基于RefBase的强弱指针">
 <meta property="og:url" content="http://codegeek.club/2021/11/21/Android/Android%E4%B8%AD%E5%9F%BA%E4%BA%8ERefBase%E7%9A%84%E5%BC%BA%E5%BC%B1%E6%8C%87%E9%92%88/index.html">
 <meta property="og:site_name" content="Code Geek!">
-<meta property="og:description" content="&amp;emsp;&amp;emsp;观察AOSP的native代码，发现其中很多class都会继承RefBase，那么继承RefBase到底有哪些作用呢？观察声明RefBase的头文件[system&#x2F;core&#x2F;libutils&#x2F;include&#x2F;utils&#x2F;RefBase.h]，里面有非常详细的注释，可以看到RefBase是为了智能指针wp和sp的使用而定义的。顾名思义，wp和sp指针为引用计数型指针，分为表示">
+<meta property="og:description" content="观察AOSP的native代码，发现其中很多class都会继承RefBase，那么继承RefBase到底有哪些作用呢？观察声明RefBase的头文件[system&#x2F;core&#x2F;libutils&#x2F;include&#x2F;utils&#x2F;RefBase.h]，里面有非常详细的注释，可以看到RefBase是为了智能指针wp和sp的使用而定义的。顾名思义，wp和sp指针为引用计数型指针，分为表示弱引用指针和强引用指针。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-11-21T13:27:17.000Z">
-<meta property="article:modified_time" content="2022-01-17T15:20:46.069Z">
+<meta property="article:modified_time" content="2022-04-24T07:30:28.529Z">
 <meta property="article:author" content="xxfeng">
 <meta property="article:tag" content="Android, OpenHarmony, Linux, C++">
 <meta name="twitter:card" content="summary">
@@ -332,14 +332,18 @@
       
 
       
-        <p>&emsp;&emsp;观察AOSP的native代码，发现其中很多class都会继承RefBase，那么继承RefBase到底有哪些作用呢？观察声明RefBase的头文件[system/core/libutils/include/utils/RefBase.h]，里面有非常详细的注释，可以看到RefBase是为了智能指针wp和sp的使用而定义的。顾名思义，wp和sp指针为引用计数型指针，分为表示弱引用指针和强引用指针。但是众所周知，C++的标准库中也有引用计数型指针shared_ptr和weak_ptr，为什么Android不使用标准库中的引用计数型智能指针，而要自己造一套轮子呢？Android实现的wp和sp究竟相比于标准库的shared_ptr和unique_ptr有何优势？</p>
+        <p>观察AOSP的native代码，发现其中很多class都会继承RefBase，那么继承RefBase到底有哪些作用呢？观察声明RefBase的头文件[system/core/libutils/include/utils/RefBase.h]，里面有非常详细的注释，可以看到RefBase是为了智能指针wp和sp的使用而定义的。顾名思义，wp和sp指针为引用计数型指针，分为表示弱引用指针和强引用指针。但是众所周知，C++的标准库中也有引用计数型指针shared_ptr和weak_ptr，为什么Android不使用标准库中的引用计数型智能指针，而要自己造一套轮子呢？Android实现的wp和sp究竟相比于标准库的shared_ptr和unique_ptr有何区别？
 <span id="more"></span>
 
-<p>&emsp;&emsp;RefBase配合sp和wp实现了一套引用计数型指针，和std::shared_ptr不同的是，基于RefBase的sp是侵入式的引用计数指针，而标准库的shared_ptr是非侵入式的。侵入式的引用计数指针要求对象自身拥有引用计数节点，并且提供增减引用计数的接口（RefBase正是实现了这样的接口）；而非侵入式的引用计数指针对管理的对象本身没有要求，而是在对象外部维护独立的引用计数节点。</p>
-<p>&emsp;&emsp;所以侵入式引用计数指针（如AOSP中基于RefBase的sp）的优点就是每一个智能指针都只需要管理对象的指针就行，因为对象自身中保存了一个引用计数节点；而不需要像shared_ptr这样的非侵入式智能指针一样，在每个shared_ptr中都得带上一个管理引用计数的节点。这样会节省一部分空间，而且也会因为程序局部性的关系，我猜测其比shared_ptr性能更好一点（当然这样的性能差异可能可以忽略不计，最终还得以实测为准）。而缺点呢，也十分明显，那就是想要使用sp指针管理对象指针时，该对象必须是继承了RefBase的，不然就没有办法进行引用计数的增减。</p>
-<h2 id="1-RefBase"><a href="#1-RefBase" class="headerlink" title="1. RefBase"></a>1. RefBase</h2><p>&emsp;&emsp;观察RefBase头文件中的class声明，可见其包含了一个成员mRefs，它的类型是weakref_impl，weakref_impl是一个前置声明，翻看RefBase.cpp可以看到class RefBase::weakref_impl : public RefBase::weakref_type的继承关系，而RefBase::weakref_type是一个纯接口类，其中提供了incWeak和decWeak等接口，顾名思义那就是增减弱引用计数的。那么增减强引用计数的接口在哪里呢？是直接声明在RefBase类中的。</p>
+<p>RefBase配合sp和wp实现了一套引用计数型指针，和std::shared_ptr不同的是，基于RefBase的sp是侵入式的引用计数指针，而标准库的shared_ptr是非侵入式的。侵入式的引用计数指针要求对象自身拥有引用计数节点，并且提供增减引用计数的接口（RefBase正是实现了这样的接口）；而非侵入式的引用计数指针对管理的对象本身没有要求，而是在对象外部维护独立的引用计数节点。
+
+<p>所以侵入式引用计数指针（如AOSP中基于RefBase的sp）的优点就是每一个智能指针都只需要管理对象的指针就行，因为对象自身中保存了一个引用计数节点；而不需要像shared_ptr这样的非侵入式智能指针一样，在每个shared_ptr中都得带上一个管理引用计数的节点。这样会节省一部分空间，而且也会因为程序局部性的关系，我猜测其比shared_ptr性能更好一点（当然这样的性能差异可能可以忽略不计，最终还得以实测为准）。而缺点呢，也十分明显，那就是想要使用sp指针管理对象指针时，该对象必须是继承了RefBase的，不然就没有办法进行引用计数的增减。
+
+
+<h2 id="1-RefBase"><a href="#1-RefBase" class="headerlink" title="1. RefBase"></a>1. RefBase</h2><p>观察RefBase头文件中的class声明，可见其包含了一个成员mRefs，它的类型是weakref_impl，想必就是引用计数节点了。weakref_impl是一个前置声明，翻看RefBase.cpp可以看到class RefBase::weakref_impl : public RefBase::weakref_type的继承关系。RefBase::weakref_type是一个纯接口类，其中提供了incWeak和decWeak等接口，顾名思义那就是增减弱引用计数的。那么增减强引用计数的接口在哪里呢？是直接声明在RefBase类中的。
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// RefBase的大致结构，为便于理解，有删减。</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RefBase</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">incStrong</span><span class="params">(<span class="keyword">const</span> <span class="keyword">void</span>* id)</span> <span class="keyword">const</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">decStrong</span><span class="params">(<span class="keyword">const</span> <span class="keyword">void</span>* id)</span> <span class="keyword">const</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">int32_t</span> <span class="title">getStrongCount</span><span class="params">()</span> <span class="keyword">const</span></span>;</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">weakref_type</span> &#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">incWeak</span><span class="params">(<span class="keyword">const</span> <span class="keyword">void</span>* id)</span></span>;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">decWeak</span><span class="params">(<span class="keyword">const</span> <span class="keyword">void</span>* id)</span></span>;</span><br><span class="line">        <span class="function"><span class="keyword">int32_t</span> <span class="title">getWeakCount</span><span class="params">()</span> <span class="keyword">const</span></span>;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="function">weakref_type* <span class="title">createWeak</span><span class="params">(<span class="keyword">const</span> <span class="keyword">void</span>* id)</span> <span class="keyword">const</span></span>;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">friend</span> <span class="class"><span class="keyword">class</span> <span class="title">weakref_type</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">weakref_impl</span>;</span> <span class="comment">// class RefBase::weakref_impl : public RefBase::weakref_type</span></span><br><span class="line">    weakref_impl* <span class="keyword">const</span> mRefs;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>&emsp;&emsp;现在我们对RefBase的结构有了大概的了解，它声明了incStrong和decStrong接口，用于增减强引用计数，类中又声明了weakref_type，它的incWeak和decWeak接口是用于增减弱引用计数的。继承自RefBase的每一个对象都会保存一个weakref_impl指针，指向该对象的引用节点，该引用节点继承自weakref_type类型。</p>
+<p>现在我们对RefBase的结构有了大概的了解，它声明了incStrong和decStrong接口，用于增减强引用计数，类中又声明了weakref_type，它的incWeak和decWeak接口是用于增减弱引用计数的。继承自RefBase的每一个对象都会保存一个weakref_impl指针，指向该对象的引用节点，该引用节点继承自weakref_type类型。
+<p>
 
       
     </div>
@@ -453,7 +457,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -464,7 +468,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
