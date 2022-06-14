@@ -335,14 +335,28 @@
       
         
           
-            <p> Xwayland是Xserver的一个实现，用于对接Xclinet和wayland-server
+            <p> Xwayland是Xserver的一个实现，用于对接Xclinet和wayland-server.
 
 
 <h2 id="1-下载Xwayland代码"><a href="#1-下载Xwayland代码" class="headerlink" title="1. 下载Xwayland代码"></a>1. 下载Xwayland代码</h2><p> 从freedesktop.org上可以下载Xwayland代码
 
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://gitlab.freedesktop.org/xorg/xserver.git</span><br></pre></td></tr></table></figure>
 
+<h2 id="2-编译Xwayland"><a href="#2-编译Xwayland" class="headerlink" title="2. 编译Xwayland"></a>2. 编译Xwayland</h2><p> 代码拉取到本地之后，可通过git branch -a查看其分支信息，我们可以将代码切到最新的xwayland分支上去：
 
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b xwayland-22.1 origin/xwayland-22.1</span><br></pre></td></tr></table></figure>
+
+<p> Xwayland代码使用meson构建系统进行编译:
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 如果没有安装meson和ninja，则执行</span></span><br><span class="line">sudo apt install meson ninja -y</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 安装编译Xwayland需要的依赖库</span></span><br><span class="line">sudo apt build-dep xwayland</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 进行构建</span></span><br><span class="line">meson build # 如果有错误（依赖的库版本太新），则可以考虑切成更老的xwayland分支再进行尝试</span><br><span class="line">ninja -C build</span><br></pre></td></tr></table></figure>
+
+<p> 如果使用vscode查看代码，可以安装clangd插件，编译完之后，在项目根目录执行:
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 创建compile_commands.json的软连接，供clangd插件解析使用</span></span><br><span class="line">ln -s build/compile_commands.json</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ubuntu系统要使用clangd插件还需要安装clangd软件包</span></span><br><span class="line">sudo apt install clangd</span><br></pre></td></tr></table></figure>
+
+<p> 代码跳转已经搞定，可以进行分析源码的工作了。
+
+<h2 id="3-Xwayland初始化"><a href="#3-Xwayland初始化" class="headerlink" title="3. Xwayland初始化"></a>3. Xwayland初始化</h2>
           
         
       

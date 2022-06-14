@@ -79,15 +79,15 @@
 
 
 
-<meta name="description" content="Xwayland是Xserver的一个实现，用于对接Xclinet和wayland-server   1. 下载Xwayland代码 从freedesktop.org上可以下载Xwayland代码  1git clone https:&#x2F;&#x2F;gitlab.freedesktop.org&#x2F;xorg&#x2F;xserver.git">
+<meta name="description" content="Xwayland是Xserver的一个实现，用于对接Xclinet和wayland-server.   1. 下载Xwayland代码 从freedesktop.org上可以下载Xwayland代码  1git clone https:&#x2F;&#x2F;gitlab.freedesktop.org&#x2F;xorg&#x2F;xserver.git  2. 编译Xwayland 代码拉取到本地之后，可通过git branch">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Xwayland">
 <meta property="og:url" content="http://codegeek.club/2022/06/14/Linux/Xwayland/index.html">
 <meta property="og:site_name" content="Code Geek!">
-<meta property="og:description" content="Xwayland是Xserver的一个实现，用于对接Xclinet和wayland-server   1. 下载Xwayland代码 从freedesktop.org上可以下载Xwayland代码  1git clone https:&#x2F;&#x2F;gitlab.freedesktop.org&#x2F;xorg&#x2F;xserver.git">
+<meta property="og:description" content="Xwayland是Xserver的一个实现，用于对接Xclinet和wayland-server.   1. 下载Xwayland代码 从freedesktop.org上可以下载Xwayland代码  1git clone https:&#x2F;&#x2F;gitlab.freedesktop.org&#x2F;xorg&#x2F;xserver.git  2. 编译Xwayland 代码拉取到本地之后，可通过git branch">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-06-14T08:13:05.000Z">
-<meta property="article:modified_time" content="2022-06-14T08:52:39.846Z">
+<meta property="article:modified_time" content="2022-06-14T13:29:37.909Z">
 <meta property="article:author" content="xxfeng">
 <meta property="article:tag" content="Android, OpenHarmony, Linux, C++">
 <meta name="twitter:card" content="summary">
@@ -332,14 +332,28 @@
       
 
       
-        <p> Xwayland是Xserver的一个实现，用于对接Xclinet和wayland-server
+        <p> Xwayland是Xserver的一个实现，用于对接Xclinet和wayland-server.
 
 
 <h2 id="1-下载Xwayland代码"><a href="#1-下载Xwayland代码" class="headerlink" title="1. 下载Xwayland代码"></a>1. 下载Xwayland代码</h2><p> 从freedesktop.org上可以下载Xwayland代码
 
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://gitlab.freedesktop.org/xorg/xserver.git</span><br></pre></td></tr></table></figure>
 
+<h2 id="2-编译Xwayland"><a href="#2-编译Xwayland" class="headerlink" title="2. 编译Xwayland"></a>2. 编译Xwayland</h2><p> 代码拉取到本地之后，可通过git branch -a查看其分支信息，我们可以将代码切到最新的xwayland分支上去：
 
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b xwayland-22.1 origin/xwayland-22.1</span><br></pre></td></tr></table></figure>
+
+<p> Xwayland代码使用meson构建系统进行编译:
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 如果没有安装meson和ninja，则执行</span></span><br><span class="line">sudo apt install meson ninja -y</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 安装编译Xwayland需要的依赖库</span></span><br><span class="line">sudo apt build-dep xwayland</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 进行构建</span></span><br><span class="line">meson build # 如果有错误（依赖的库版本太新），则可以考虑切成更老的xwayland分支再进行尝试</span><br><span class="line">ninja -C build</span><br></pre></td></tr></table></figure>
+
+<p> 如果使用vscode查看代码，可以安装clangd插件，编译完之后，在项目根目录执行:
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 创建compile_commands.json的软连接，供clangd插件解析使用</span></span><br><span class="line">ln -s build/compile_commands.json</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ubuntu系统要使用clangd插件还需要安装clangd软件包</span></span><br><span class="line">sudo apt install clangd</span><br></pre></td></tr></table></figure>
+
+<p> 代码跳转已经搞定，可以进行分析源码的工作了。
+
+<h2 id="3-Xwayland初始化"><a href="#3-Xwayland初始化" class="headerlink" title="3. Xwayland初始化"></a>3. Xwayland初始化</h2>
       
     </div>
     
@@ -494,7 +508,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E4%B8%8B%E8%BD%BDXwayland%E4%BB%A3%E7%A0%81"><span class="nav-number">1.</span> <span class="nav-text">1. 下载Xwayland代码</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E4%B8%8B%E8%BD%BDXwayland%E4%BB%A3%E7%A0%81"><span class="nav-number">1.</span> <span class="nav-text">1. 下载Xwayland代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E7%BC%96%E8%AF%91Xwayland"><span class="nav-number">2.</span> <span class="nav-text">2. 编译Xwayland</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Xwayland%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">3.</span> <span class="nav-text">3. Xwayland初始化</span></a></li></ol></div>
             
 
           </div>
