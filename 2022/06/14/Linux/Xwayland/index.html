@@ -87,7 +87,7 @@
 <meta property="og:description" content="Xwayland是Xserver的一个实现，用于对接Xclinet和wayland-server.   1. 下载Xwayland代码 从freedesktop.org上可以下载Xwayland代码  1git clone https:&#x2F;&#x2F;gitlab.freedesktop.org&#x2F;xorg&#x2F;xserver.git  2. 编译Xwayland 代码拉取到本地之后，可通过git branch">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-06-14T08:13:05.000Z">
-<meta property="article:modified_time" content="2022-06-14T13:29:37.909Z">
+<meta property="article:modified_time" content="2022-06-14T13:36:28.998Z">
 <meta property="article:author" content="xxfeng">
 <meta property="article:tag" content="Android, OpenHarmony, Linux, C++">
 <meta name="twitter:card" content="summary">
@@ -345,7 +345,7 @@
 
 <p> Xwayland代码使用meson构建系统进行编译:
 
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 如果没有安装meson和ninja，则执行</span></span><br><span class="line">sudo apt install meson ninja -y</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 安装编译Xwayland需要的依赖库</span></span><br><span class="line">sudo apt build-dep xwayland</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 进行构建</span></span><br><span class="line">meson build # 如果有错误（依赖的库版本太新），则可以考虑切成更老的xwayland分支再进行尝试</span><br><span class="line">ninja -C build</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 如果没有安装meson和ninja，则执行</span></span><br><span class="line">sudo apt install meson ninja-build -y</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 安装编译Xwayland需要的依赖库</span></span><br><span class="line">sudo apt build-dep xwayland</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 进行构建</span></span><br><span class="line">meson build # 如果有错误（依赖的库版本太新），则可以考虑切成更老的xwayland分支再进行尝试</span><br><span class="line">ninja -C build</span><br></pre></td></tr></table></figure>
 
 <p> 如果使用vscode查看代码，可以安装clangd插件，编译完之后，在项目根目录执行:
 
