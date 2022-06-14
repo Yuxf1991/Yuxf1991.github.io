@@ -89,7 +89,7 @@
 <meta property="og:image" content="http://codegeek.club/images/vscode_cmake_build_dir.png">
 <meta property="og:image" content="http://codegeek.club/images/vscode_cmake_config_args.png">
 <meta property="article:published_time" content="2021-11-19T15:31:29.000Z">
-<meta property="article:modified_time" content="2022-06-13T14:07:37.518Z">
+<meta property="article:modified_time" content="2022-06-14T01:24:50.099Z">
 <meta property="article:author" content="xxfeng">
 <meta property="article:tag" content="Android, OpenHarmony, Linux, C++">
 <meta name="twitter:card" content="summary">
@@ -347,7 +347,7 @@ https://mirrors.tuna.tsinghua.edu.cn/
 
 <h2 id="2-源码编译"><a href="#2-源码编译" class="headerlink" title="2. 源码编译"></a>2. 源码编译</h2><p>下载AOSP代码完成之后，可以进行编译工作：
 
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd AOSP                     # cd进入下载好的AOSP代码目录</span><br><span class="line">source build/envsetup.sh    # 初始化编译环境</span><br><span class="line">lunch 2                     # 会弹出一个选择框，选择需要编译的系统类型，我们选择2(aosp_arm64-eng)</span><br><span class="line">make -j4                    # 以4个线程并发进行编译构建，可根据配置自行调整</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd AOSP                     # cd进入下载好的AOSP代码目录</span><br><span class="line">source build/envsetup.sh    # 初始化编译环境</span><br><span class="line">lunch 2                     # 输入lunch会弹出一个选择框，选择需要编译的系统类型，我们默认选择2(aosp_arm64-eng)</span><br><span class="line">make -j4                    # 开启四个并行任务进行编译构建，可根据配置自行调整</span><br></pre></td></tr></table></figure>
 
 <h2 id="3-准备源码阅读环境"><a href="#3-准备源码阅读环境" class="headerlink" title="3. 准备源码阅读环境"></a>3. 准备源码阅读环境</h2><p>AOSP代码主要有两部分，一部分是Java语言编写的上层应用框架层，一部分是C++语言编写的native系统架构层，阅读这两部分的代码，都需要有一个合适的工具，推荐使用Jetbrains公司的IDE来阅读，分别是Android Studio（阅读Java框架代码）和Clion（阅读native系统框架的代码）。<br/>
 
@@ -359,7 +359,7 @@ https://mirrors.tuna.tsinghua.edu.cn/
 https://android.googlesource.com/platform/build/soong/+/refs/heads/master/docs/clion.md
 
 
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cd AOSP                      # cd进入下载好的AOSP代码目录</span><br><span class="line">source build/envsetup.sh     # 初始化编译环境</span><br><span class="line">lunch 2                      # 会弹出一个选择框，选择需要编译的系统类型，我们选择2(aosp_arm64-eng)</span><br><span class="line"></span><br><span class="line">export SOONG_GEN_CMAKEFILES=1</span><br><span class="line">export SOONG_GEN_CMAKEFILES_DEBUG=1</span><br><span class="line">make -j4</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cd AOSP                      # cd进入下载好的AOSP代码目录</span><br><span class="line">source build/envsetup.sh     # 初始化编译环境</span><br><span class="line">lunch 2                      # 选择(aosp_arm64-eng)</span><br><span class="line"></span><br><span class="line">export SOONG_GEN_CMAKEFILES=1</span><br><span class="line">export SOONG_GEN_CMAKEFILES_DEBUG=1</span><br><span class="line">make -j4</span><br></pre></td></tr></table></figure>
 
 <p>等待编译完成，在源码根目录的out/development/ide/clion文件夹中就会生成系统所有C++模块的CMakeLists.txt文件，用Clion打开其中某个模块，比如
 out/development/ide/clion/frameworks/native/libs/gui/libgui-arm64-android，
